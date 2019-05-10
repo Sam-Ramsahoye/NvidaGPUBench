@@ -22,10 +22,13 @@ filesRequired = [f for f in files if (year in f)]
 nProc = 16
 nFilesArr = [1,10,100,400]
 nFilesArr = [i*nProc for i in nFilesArr]
-start = time.time()
-out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
-df = cudf.concat(out)
-end = time.time()
-print(end-start)
+tArr = []
+for nFiles in nFilesArr:
+    start = time.time()
+    out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
+    df = cudf.concat(out)
+    end = time.time()
+    print(end-start)
+    tArr.append(end-start)
 
 
