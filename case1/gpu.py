@@ -24,5 +24,6 @@ start = time.time()
 out = Parallel(n_jobs = 16)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
 df = pd.concat(out)
 end = time.time()
+print(end-start)
 
 
