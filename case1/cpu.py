@@ -19,9 +19,11 @@ year = '2014'
 files = os.listdir(path)
 
 filesRequired = [f for f in files if (year in f)]
-nFiles = 200
+nProc = 16
+nFilesArr = [1,10,100,400]
+nFilesArr = [i*nProc for i in nFilesArr]
 start = time.time()
-out = Parallel(n_jobs = 16)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
+out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
 df = pd.concat(out)
 end = time.time()
 print(end-start)
