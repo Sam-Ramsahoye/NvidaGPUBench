@@ -20,7 +20,7 @@ files = os.listdir(path)
 
 filesRequired = [f for f in files if (year in f)]
 nProc = 16
-nFilesArr = [80]
+nFilesArr = [10]
 nFilesArr = [i*nProc for i in nFilesArr]
 tArr = []
 for nFiles in nFilesArr:
@@ -32,6 +32,7 @@ for nFiles in nFilesArr:
     tArr.append(end-start)
     del out
 
+print(df)
 print(tArr)
 
 
