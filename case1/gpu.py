@@ -10,7 +10,7 @@ import numpy as np
 from joblib import Parallel ,delayed
 
 # fileRead
-def file_read(path,file,ew):
+def file_read(path,file):
     cudfObj = cudf.read_csv(path+file)
     return cudfObj
 
