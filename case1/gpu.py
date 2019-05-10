@@ -19,7 +19,7 @@ year = '2014'
 files = os.listdir(path)
 
 filesRequired = [f for f in files if (year in f)]
-nFiles = 100
+nFiles = 200
 start = time.time()
 out = Parallel(n_jobs = 16)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
 df = cudf.concat(out)
