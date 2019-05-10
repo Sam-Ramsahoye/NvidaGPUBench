@@ -8,6 +8,7 @@ import numba
 import time
 import numpy as np
 from joblib import Parallel ,delayed
+import sys
 
 # fileRead
 def file_read(path,file):
@@ -32,7 +33,7 @@ for nFiles in nFilesArr:
     tArr.append(end-start)
     del out
 
-print(df)
-print(tArr)
+print(sys.getsizeof(df))
+#print(tArr)
 
 
