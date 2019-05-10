@@ -31,4 +31,6 @@ for nFiles in nFilesArr:
     end = time.time()
     print(end-start)
     tArr.append(end-start)
+    del out
 
+print(tArr)
