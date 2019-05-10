@@ -22,7 +22,7 @@ filesRequired = [f for f in files if (year in f)]
 nFiles = 100
 start = time.time()
 out = Parallel(n_jobs = 16)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
-df = pd.concat(out)
+df = cudf.concat(out)
 end = time.time()
 print(end-start)
 
