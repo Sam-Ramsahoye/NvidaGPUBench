@@ -21,13 +21,13 @@ files = os.listdir(path)
 
 filesRequired = [f for f in files if (year in f)]
 nProc = 16
-nFilesArr = [80]
+nFilesArr = [75]
 nFilesArr = [i*nProc for i in nFilesArr]
 tArr = []
 for nFiles in nFilesArr:
     start = time.time()
     #out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
-    df = cudf.concat(Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[:nFiles]))
+    df = cudf.concat(Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[100:180]))
     end = time.time()
     print(end-start)
     tArr.append(end-start)
