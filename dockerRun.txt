@@ -1,0 +1,1 @@
+docker run --runtime=nvidia --rm -it -v /home/nvidia/Documents/Sam/NvidiaGPUBench/:/home/NvidiaGPUBench -v /home/nvidia/Documents/nfr/data/:/home/data samgpu4

@@ -8,45 +8,32 @@ import numba
 import time
 import numpy as np
 from joblib import Parallel ,delayed
-
-# hashing time
-def time_conv(x):
-    #print(type(x))
-    #print(x)
-    temp = x.split(' ')
-
-    ymd = temp[0].split('-')
-    hm = temp[1].split(':')
-    return datetime(int(ymd[0]),int(ymd[1]),int(ymd[2]),int(hm[0]),int(hm[1]),0).timestamp()
-
-# hasting id
-def id_conv(x):
-    temp = x.split('RC')
-    return int(temp[1])
+import sys
 
 # fileRead
-def file_read(path,file,ew):
-    pdObj = pd.read_csv(path+file).drop(['Date','Time'], axis = 1).dropna()
-    pdObj['DateTime'] = pdObj['DateTime'].apply(time_conv)
-    pdObj = pdObj[pdObj['Precipitation (mm)'] >= 0]
-    return cudf.from_pandas(pdObj.merge(ew, on=['Lat', 'Lon']))
+def file_read(path,file):
+    cudfObj = cudf.read_csv(path+file).drop(['Date','Time'])
+    return cudfObj
 
-# Getting Required Data
-ew = pd.read_csv('ew_rcid_lat_lon.csv')
-ew['RCID'] = ew['RCID'].apply(id_conv)
+path = '../../data/'
+year = '2014'
+files = os.listdir(path)
 
-df_cu = cudf.read_csv(path+filesRequired[10,names = ['Lat','Lon','Precipitation (mm)','DateTime'],dtype = ['float','float','float','str'])
-print(df_cu.head())
+filesRequired = [f for f in files if (year in f)]
+nProc = 16
+nFilesArr = [75]
+nFilesArr = [i*nProc for i in nFilesArr]
+tArr = []
+for nFiles in nFilesArr:
+    start = time.time()
+    #out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
+    df = cudf.concat(Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[100:1400]))
+    end = time.time()
+    print(end-start)
+    tArr.append(end-start)
+    del out
 
-# nTimes = 500
-# totalTime = 0.0
-# path = '../data/'
-# yearMonth1 = '201401'
-# files = os.listdir(path)
-# filesRequired = [f for f in files if (yearMonth1 in f)]
-# df_pd = pd.read_csv(path+filesRequired[1])
-# print(df_pd.head())
-# print(len(df_pd))
-# out = Parallel(n_jobs = 16)(delayed(file_read)(path,f,ew) for f in filesRequired[0:nTimes])
-# df_original_gpu = cudf.concat(out)
-# end = time.time()
+print(sys.getsizeof(df))
+#print(tArr)
+
+
