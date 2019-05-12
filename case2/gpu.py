@@ -28,8 +28,8 @@ tArr = []
 
 for nFiles in nFilesArr:
     start = time.time()
-    #out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
-    df = cudf.concat(Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[100:1400]))
+    out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
+    df = cudf.concat(out)
     end = time.time()
     print(end-start)
     tArr.append(end-start)

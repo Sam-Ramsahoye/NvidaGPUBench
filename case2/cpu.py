@@ -35,6 +35,7 @@ for nFiles in nFilesArr:
     tArr.append(end-start)
     dfSizeArr.append(sys.getsizeof(df))
     del out
+    del df
 
 print(tArr)
 print(dfSizeArr)
