@@ -10,27 +10,33 @@ import numpy as np
 from joblib import Parallel ,delayed
 
 # fileRead
-def file_read(path,file):
+def file_read(path,file,ew):
     pdObj = pd.read_csv(path+file)
-    return pdObj
+    return ew.merge(pdObj, on=['Lat', 'Lon'])
+
+# Getting ID-Location Association
+ew = pd.read_csv('../ew_rcid_lat_lon.csv')
 
 path = '../../data/'
 year = '2014'
 files = os.listdir(path)
+filesRequired = [f for f in files if 'nr' in f]
 
-filesRequired = [f for f in files if (year in f)]
 nProc = 16
-nFilesArr = [100]
+nFilesArr = [1, 10]
 nFilesArr = [i*nProc for i in nFilesArr]
 tArr = []
+dfSizeArr = []
 
 for nFiles in nFilesArr:
     start = time.time()
-    out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
+    out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f,ew) for f in filesRequired[:nFiles])
     df = pd.concat(out)
     end = time.time()
     print(end-start)
     tArr.append(end-start)
+    dfSizeArr.append(sys.getsizeof(df))
     del out
 
 print(tArr)
+print(dfSizeArr)
