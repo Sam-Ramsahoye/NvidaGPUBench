@@ -10,13 +10,20 @@ import numpy as np
 from joblib import Parallel ,delayed
 import sys
 
+# hasting id
+def id_conv(x):
+    temp = x.split('RC')
+    return int(temp[1])
+
 # fileRead
 def file_read(path,file,ew):
-    pdObj = pd.read_csv(path+file).drop(['Date','Time'])
+    pdObj = pd.read_csv(path+file).drop(['Date','Time'], axis = 1)
     return ew.merge(pdObj, on=['Lat', 'Lon'])
 
 # Getting ID-Location Association
+
 ew = pd.read_csv('../ew_rcid_lat_lon.csv')
+ew['RCID'] = ew['RCID'].apply(id_conv)
 
 path = '../../data/'
 year = '2014'
