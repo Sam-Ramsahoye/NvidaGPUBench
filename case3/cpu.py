@@ -12,7 +12,7 @@ import sys
 
 # fileRead
 def file_read(path,file,ew):
-    pdObj = pd.read_csv(path+file)
+    pdObj = pd.read_csv(path+file).drop(['Date','Time'])
     return ew.merge(pdObj, on=['Lat', 'Lon'])
 
 # Getting ID-Location Association
