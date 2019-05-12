@@ -18,12 +18,14 @@ def file_read(path,file):
 path = '../../data/'
 year = '2014'
 files = os.listdir(path)
+filesRequired = [f for f in files if 'nr' in f]
 
-filesRequired = [f for f in files if (year in f)]
 nProc = 16
-nFilesArr = [75]
+nFilesArr = [1, 10, 100]
 nFilesArr = [i*nProc for i in nFilesArr]
+dfSizeArr = []
 tArr = []
+
 for nFiles in nFilesArr:
     start = time.time()
     #out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
@@ -31,9 +33,9 @@ for nFiles in nFilesArr:
     end = time.time()
     print(end-start)
     tArr.append(end-start)
+    dfSizeArr.append(sys.getsizeof(df))
     del out
 
-print(sys.getsizeof(df))
-#print(tArr)
-
+print(tArr)
+print(dfSizeArr)
 

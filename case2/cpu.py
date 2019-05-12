@@ -8,20 +8,22 @@ import numba
 import time
 import numpy as np
 from joblib import Parallel ,delayed
+import sys
 
 # fileRead
 def file_read(path,file):
-    pdObj = pd.read_csv(path+file)
+    pdObj = pd.read_csv(path+file).drop(['Date', 'Time'], axis = 1)
     return pdObj
 
 path = '../../data/'
 year = '2014'
 files = os.listdir(path)
+filesRequired = [f for f in files if 'nr' in f]
 
-filesRequired = [f for f in files if (year in f)]
 nProc = 16
-nFilesArr = [100]
+nFilesArr = [1, 10, 100]
 nFilesArr = [i*nProc for i in nFilesArr]
+dfSizeArr = []
 tArr = []
 
 for nFiles in nFilesArr:
@@ -31,6 +33,8 @@ for nFiles in nFilesArr:
     end = time.time()
     print(end-start)
     tArr.append(end-start)
+    dfSizeArr.append(sys.getsizeof(df))
     del out
 
 print(tArr)
+print(dfSizeArr)
