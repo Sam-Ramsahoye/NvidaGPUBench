@@ -8,4 +8,5 @@ from joblib import Parallel ,delayed
 import sys
 
 df = cudf.read_csv('test.csv')
-print(df.iloc[[1,2]])
+df = df.sort_values(by=['RCID','Precipitation (mm)'])
+#print(df.iloc[[1,2]])

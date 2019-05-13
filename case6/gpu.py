@@ -38,7 +38,7 @@ for nFiles in nFilesArr:
     dfSizeArr.append(sys.getsizeof(df))
     del out
 
-    df = df.sort_values(by=['RCID','Precipitation (mm)'])
+    df = df.groupby(by=['RCID','Precipitation (mm)'])
 
 #print(tArr)
 #print(dfSizeArr)
