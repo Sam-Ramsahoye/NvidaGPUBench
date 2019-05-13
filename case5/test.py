@@ -13,5 +13,4 @@ import sys
 df = cudf.DataFrame([('Precipitation (mm)', list(range(20))),
 ('b', list(reversed(range(20)))),
 ('c', list(range(20)))])
-df = df[df['Precipitation (mm)'] > 5]
-print(df)
+print(df['Precipitation (mm)'] > 5)
