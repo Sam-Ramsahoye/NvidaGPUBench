@@ -7,5 +7,5 @@ import numpy as np
 from joblib import Parallel ,delayed
 import sys
 
-df = cudf.read_csv('temp.csv')
+df = cudf.read_csv('test.csv')
 print(df.iloc[[1,2]])
