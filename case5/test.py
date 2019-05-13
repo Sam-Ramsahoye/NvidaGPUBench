@@ -11,7 +11,7 @@ import numpy as np
 from joblib import Parallel ,delayed
 import sys
 
- def dropna(df, axis="index", how="all"):
+def dropna(df, axis="index", how="all"):
         def get_is_na_mask(obj):
             return cudautils.is_na_mask(data=obj.data.to_gpu_array()
                                         mask=obj.mask.to_gpu_array())
