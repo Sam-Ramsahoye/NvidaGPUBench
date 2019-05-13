@@ -33,7 +33,7 @@ files = os.listdir(path)
 filesRequired = [f for f in files if 'nr' in f]
 
 nProc = 16
-nFilesArr = [1, 10, 100, 1000]
+nFilesArr = [1]
 nFilesArr = [i*nProc for i in nFilesArr]
 dfSizeArr = []
 tArr = []
@@ -65,7 +65,7 @@ for nFiles in nFilesArr:
 
     df = df.iloc[list(np.where(gpu_out_4 == 0)[0])]
 
-    
+
 
 
 
