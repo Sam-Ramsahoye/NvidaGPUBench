@@ -63,7 +63,9 @@ for nFiles in nFilesArr:
     filter_precipitation[(number_of_blocks,), (number_of_threads, )](gpu_in_4,gpu_out_4,nRows)
     cuda.synchronize()
 
-    df = df.iloc[list(np.where(gpu_out_4 == 0)[0])]
+    df_pd = cudf.to_pandas()
+    df_pd.to_csv('test.csv')
+    #df = df.iloc[list(np.where(gpu_out_4 == 0)[0])]
 
 
 
