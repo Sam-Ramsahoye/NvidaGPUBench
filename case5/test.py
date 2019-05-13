@@ -10,7 +10,8 @@ import numpy as np
 from joblib import Parallel ,delayed
 import sys
 
-df = cudf.DataFrame([('a', list(range(20))),
+df = cudf.DataFrame([('Precipitation (mm)', list(range(20))),
 ('b', list(reversed(range(20)))),
 ('c', list(range(20)))])
+df = df['Precipitation (mm)' > 5]
 print(df)
