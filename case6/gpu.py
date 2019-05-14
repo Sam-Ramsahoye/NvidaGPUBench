@@ -23,7 +23,7 @@ files = os.listdir(path)
 filesRequired = [f for f in files if 'nr' in f]
 
 nProc = 16
-nFilesArr = [250]
+nFilesArr = [200]
 nFilesArr = [i*nProc for i in nFilesArr]
 dfSizeArr = []
 tArr = []
