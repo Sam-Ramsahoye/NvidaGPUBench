@@ -29,7 +29,7 @@ dfSizeArr = []
 tArr = []
 
 for nFiles in nFilesArr:
-    out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f,ew_gpu) for f in filesRequired[:nFiles])
+    out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f) for f in filesRequired[:nFiles])
     df = cudf.concat(out)
     dfSizeArr.append(sys.getsizeof(df))
     del out
