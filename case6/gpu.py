@@ -23,7 +23,7 @@ files = os.listdir(path)
 filesRequired = [f for f in files if 'nr' in f]
 
 nProc = 16
-nFilesArr = [100]
+nFilesArr = [300]
 nFilesArr = [i*nProc for i in nFilesArr]
 dfSizeArr = []
 tArr = []
@@ -33,12 +33,12 @@ for nFiles in nFilesArr:
     df = cudf.concat(out)
     dfSizeArr.append(sys.getsizeof(df))
     del out
-    print(len(df))
-    start = time.time()
-    df = df.groupby(by=['RCID','Precipitation (mm)'])
-    end = time.time()
-    print(end-start)
-    tArr.append(end-start)
+    # print(len(df))
+    # start = time.time()
+    # df = df.groupby(by=['RCID','Precipitation (mm)'])
+    # end = time.time()
+    # print(end-start)
+    # tArr.append(end-start)
     
 
 print(tArr)
