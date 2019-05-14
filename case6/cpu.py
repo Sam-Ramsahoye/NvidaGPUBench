@@ -31,13 +31,14 @@ files = os.listdir(path)
 filesRequired = [f for f in files if 'nr' in f]
 
 nProc = 16
-nFilesArr = [1, 10, 100]
+nFilesArr = [1]
 nFilesArr = [i*nProc for i in nFilesArr]
 tArr = []
 dfSizeArr = []
 
 for nFiles in nFilesArr:
     out = Parallel(n_jobs = nProc)(delayed(file_read)(path,f,ew) for f in filesRequired[:nFiles])
+    
     df = pd.concat(out)
     dfSizeArr.append(sys.getsizeof(df))
     del out

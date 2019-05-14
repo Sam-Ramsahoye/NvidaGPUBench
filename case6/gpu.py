@@ -11,9 +11,9 @@ from joblib import Parallel ,delayed
 import sys
 
 # fileRead
-def file_read(path,file,ew_gpu):
+def file_read(path,file):
     cudfObj = cudf.read_csv(path+file).drop(['Date','Time'])
-    return ew_gpu.merge(cudfObj, on=['Lat', 'Lon'])
+    return cudfObj
 
 # Getting ID-Location Association
 ew_gpu = cudf.read_csv('../ew_rcid_lat_lon.csv', dtype = ['category','float64','float64'])
@@ -23,7 +23,7 @@ files = os.listdir(path)
 filesRequired = [f for f in files if 'nr' in f]
 
 nProc = 16
-nFilesArr = [1,10,100,1000]
+nFilesArr = [100]
 nFilesArr = [i*nProc for i in nFilesArr]
 dfSizeArr = []
 tArr = []
@@ -42,4 +42,4 @@ for nFiles in nFilesArr:
     
 
 print(tArr)
-#print(dfSizeArr)
+print(dfSizeArr)
