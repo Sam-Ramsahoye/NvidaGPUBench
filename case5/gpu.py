@@ -13,6 +13,7 @@ import sys
 # fileRead
 def file_read(path,file,ew_gpu):
     cudfObj = cudf.read_csv(path+file).drop(['Date','Time'])
+    cudfObj.add_column('Precip',cudfObj['Precipitation (mm)'])
     return ew_gpu.merge(cudfObj, on=['Lat', 'Lon'])
 
 # Filter Precipitation
@@ -63,7 +64,7 @@ for nFiles in nFilesArr:
     #filter_precipitation[(number_of_blocks,), (number_of_threads, )](gpu_in_4,gpu_out_4,nRows)
     #cuda.synchronize()
 
-    print(df.query("Precipitation (mm) == 0"))
+    print(df.query("Precip > 0"))
     #df = df.iloc[list(np.where(gpu_out_4 == 0)[0])]
 
 
