@@ -13,5 +13,8 @@ df = df[df['precip'] > 0]
 end = time.time()
 print(end-start)
 print(df.head(10))
+start = time.time()
 df = ew.merge(df, on=['Lat', 'Lon'])
+end = time.time()
+print(end-start)
 print(len(df))
