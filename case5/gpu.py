@@ -63,7 +63,7 @@ for nFiles in nFilesArr:
     #filter_precipitation[(number_of_blocks,), (number_of_threads, )](gpu_in_4,gpu_out_4,nRows)
     #cuda.synchronize()
 
-    print(df.iloc[[1,2]])
+    print(df.query("Precipitation (mm) == 0"))
     #df = df.iloc[list(np.where(gpu_out_4 == 0)[0])]
 
 
