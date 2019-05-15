@@ -16,12 +16,12 @@ def file_read(path,file):
     return pdObj
 
 path = '../../data/'
-year = '2014'
+year = 'nr'
 files = os.listdir(path)
 
 filesRequired = [f for f in files if (year in f)]
 nProc = 16
-nFilesArr = [1]
+nFilesArr = [1000]
 nFilesArr = [i*nProc for i in nFilesArr]
 tArr = []
 
